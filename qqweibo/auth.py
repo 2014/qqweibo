@@ -96,7 +96,8 @@ class OAuthHandler(AuthHandler):
         try:
             # get the request token
             self.request_token = self._get_request_token()
-
+            print '[token]:',self.request_token
+            
             # build auth request and return as url
             if signin_with_weibo:
                 url = self._get_oauth_url('authenticate')
@@ -110,21 +111,25 @@ class OAuthHandler(AuthHandler):
         except RuntimeError as e:
             raise QWeiboError(e)
 
-    def get_access_token(self, verifier=None):
+    def get_access_token(self, key=None, secret=None, token=None, verifier=None):
         """
         After user has authorized the request token, get access token
         with user supplied verifier.
         """
         try:
+            if key and secret:
+                token = oauth.OAuthToken(key, secret)
+            if token is None:
+                token = self.request_token
+            
             url = self._get_oauth_url('access_token')
-
             # build request
             request = oauth.OAuthRequest.from_consumer_and_token(
                 self._consumer,
-                token=self.request_token, http_url=url,
+                token=token, http_url=url,
                 verifier=str(verifier)
             )
-            request.sign_request(self._sigmethod, self._consumer, self.request_token)
+            request.sign_request(self._sigmethod, self._consumer, token)
 
             # send request
             resp = urlopen(Request(request.to_url()))  # must
