@@ -13,14 +13,14 @@ sys.path.insert(0, lib_path)
 from qqweibo import version
 
 
-setup(name = "pyqqweibo",
+setup(name = "qqweibo",
       version = version,
       author = "andelf",
       author_email = "andelf@gmail.com",
       description = ("QQ weibo API SDK for python"),
       license = "MIT",
       keywords= "qq weibo library tencent microblog",
-      url="http://github.com/andelf/pyqqweibo",
+      url="http://github.com/shuni9/qqweibo",
       packages = ['qqweibo'],
       long_description = """
       QQ weibo is a microblog service that is popular among Chinese.
