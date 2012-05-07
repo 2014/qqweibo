@@ -833,6 +833,7 @@ class API(object):
                                  update=self._user_update,
                                  updatehead=self._user_update_head,
                                  userinfo=self._user_other_info,
+                                 verify=self._user_verify
                                  )
         self._bind_api_namespace('friends',
                                  fanslist=self._friends_fanslist,
